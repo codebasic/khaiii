@@ -1,4 +1,6 @@
-FROM pytorch/pytorch:latest
+FROM tensorflow/tensorflow:latest-py3 AS builder
+
+RUN apt-get update -y && apt-get install -y git
 
 ENV WORKDIR=/workspaces
 
@@ -26,8 +28,3 @@ WORKDIR ${WORKDIR}/khaiii/build
 
 RUN make package_python
 WORKDIR ${WORKDIR}/khaiii/build/package_python
-RUN pip install .
-
-WORKDIR /
-RUN rm -rf /workspaces
-RUN rm -rf /workspace
